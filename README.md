@@ -1,2 +1,0 @@
-# Deuslra
-Bot deneme 
