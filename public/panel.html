@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0b0e13">
+<title>Deuslra Gardiyan Yönetim</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="panel.css">
+</head>
+<body class="pn">
+<div class="shell">
+  <aside class="side" id="side" hidden>
+    <div class="sbrand"><div class="logo" aria-hidden="true">D</div><div><b>Deuslra Gardiyan</b><small>Yönetim paneli</small></div></div>
+    <nav class="tabs" id="tabs" role="tablist">
+      <span class="grp">Bot</span>
+      <button data-tab="home" class="on"><i aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m3 10 9-7 9 7"/><path d="M5 9v12h14V9"/><path d="M9 21v-7h6v7"/></svg></i>Genel bakış</button>
+      <button data-tab="activity"><i aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 12h4l3-8 4 16 3-8h4"/></svg></i>Aktivite</button>
+      <button data-tab="userrp"><i aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="12" rx="4"/><path d="M7 10v4M5 12h4M15 11h.01M18 13h.01"/></svg></i>Rich Presence</button>
+      <button data-tab="commands"><i aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 8h.01M11 8h.01M15 8h.01M7 12h.01M11 12h.01M15 12h.01M8 16h8"/></svg></i>Tüm komutlar</button>
+      <button data-tab="cmdadd"><i aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/><rect x="3" y="3" width="18" height="18" rx="3"/></svg></i>Komut ekle</button>
+      <span class="grp">Otomasyon</span>
+      <button data-tab="mention"><i aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.5 8.5 0 0 1-12.8 7.3L3 20l1.3-4.4A8.5 8.5 0 1 1 21 11.5Z"/><path d="M9 11h.01M15 11h.01"/></svg></i>Etiket cevapları</button>
+      <button data-tab="auto"><i aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4" y="8" width="16" height="12" rx="3"/><path d="M12 3v5M8 13h.01M16 13h.01M9 17h6"/></svg></i>Otomatik mesaj</button>
+      <button data-tab="roles"><i aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m12 3 9 5-9 5-9-5 9-5Z"/><path d="m3 12 9 5 9-5M3 16l9 5 9-5"/></svg></i>Roller</button>
+      <button data-tab="rankup"><i aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m3 17 6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg></i>Auto rank up</button>
+      <button data-tab="durum"><i aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 21s-8-4.4-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 6.6-8 11-8 11Z"/></svg></i>Durum rolü</button>
+      <span class="grp">Sunucu</span>
+      <button data-tab="members"><i aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8"/></svg></i>Üyeler</button>
+      <button data-tab="stats"><i aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 20V11M10 20V5M16 20v-8M22 20V8"/></svg></i>İstatistik</button>
+      <button data-tab="log"><i aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 6h13M8 12h13M8 18h13"/><path d="M3 6h.01M3 12h.01M3 18h.01"/></svg></i>Log</button>
+    </nav>
+  </aside>
+  <div class="main">
+  <header>
+    <div class="brand"><div><h1 id="pageTitle">Genel bakış</h1><p><a href="/">← Panele dön</a></p></div></div>
+    <div id="who" class="who" hidden><img id="whoImg" alt=""><span id="whoName"></span><a href="/auth/logout" class="out">Çıkış</a></div>
+  </header>
+
+  <!-- Giriş ekranı -->
+  <section id="login" class="box center" hidden>
+    <h2>Giriş gerekli</h2>
+    <p id="loginMsg">Bu bölümü sadece bot sahibi kullanabilir.</p>
+    <a class="btn" href="/auth/login">Discord ile giriş yap</a>
+  </section>
+
+  <!-- Yönetim -->
+  <main id="app" hidden>
+
+    <section class="pane" id="pane-home">
+      <div class="stats" id="homeStats">
+        <div class="stat"><span>Üye</span><b id="sMembers">—</b></div>
+        <div class="stat"><span>Sunucu</span><b id="sGuilds">—</b></div>
+        <div class="stat"><span>Ping</span><b id="sPing">—</b></div>
+        <div class="stat"><span>Çalışma süresi</span><b id="sUp">—</b></div>
+        <div class="stat"><span>Komut</span><b id="sCmds">—</b></div>
+      </div>
+      <div class="two">
+        <div class="box">
+          <h2>Bot görünümü</h2>
+          <p class="hint">Botun Discord profilinde böyle görünür. Değişiklikler anında uygulanır ve bot yeniden başlasa da korunur.</p>
+          <div class="dprev" id="bProfile">
+            <div class="dbanner"></div>
+            <div class="dbody">
+              <div class="bubble" id="bBubble" hidden></div>
+              <div class="bavwrap"><img id="bAvatar" alt="" width="84" height="84"><span class="sdot" id="bDot"></span></div>
+              <div class="dname"><span id="bName">—</span><em class="tag">BOT</em></div>
+              <div class="dsub" id="bAct">—</div>
+            </div>
+          </div>
+        </div>
+        <div class="box">
+          <h2>Durum</h2>
+          <div class="statuses" id="statusPick" role="radiogroup" aria-label="Bot durumu">
+            <button type="button" class="st" data-s="online" role="radio"><span class="sdot online"></span><b>Çevrimiçi</b><small>Yeşil, aktif görünür</small></button>
+            <button type="button" class="st" data-s="idle" role="radio"><span class="sdot idle"></span><b>Boşta</b><small>Sarı ay işareti</small></button>
+            <button type="button" class="st" data-s="dnd" role="radio"><span class="sdot dnd"></span><b>Rahatsız etmeyin</b><small>Kırmızı, meşgul</small></button>
+            <button type="button" class="st" data-s="invisible" role="radio"><span class="sdot invisible"></span><b>Görünmez</b><small>Çevrimdışı görünür</small></button>
+          </div>
+          <h2 style="margin-top:20px">Durum yazısı</h2>
+          <p class="hint">Avatarın üstünde görünen balon yazı (ör. <code>.gg/deuslra</code>). Aktivite listesinden bağımsızdır. <code>{uye}</code> yazarsan üye sayısı gelir. Boş bırakıp kaydedersen kalkar.</p>
+          <form id="bsForm" class="row"><input id="bsText" maxlength="100" placeholder=".gg/deuslra"><button class="btn">Kaydet</button></form>
+        </div>
+      </div>
+    </section>
+
+    <section class="pane" id="pane-activity" hidden>
+      <div class="box">
+        <h2>Aktiviteler</h2>
+        <p class="hint">Bot listedeki aktiviteleri sırayla gösterir (İzliyor, Oynuyor…). <code>{uye}</code> yazarsan anlık üye sayısı, <code>{sunucu}</code> yazarsan sunucu sayısı gelir. Bu ayar tüm sunucular için geçerlidir.</p>
+        <ul class="list" id="actList"></ul>
+        <div class="rpcard" id="rpCard" aria-label="Rich Presence önizleme">
+          <div class="rph">Şu an gösterilen</div>
+          <div class="rpb"><div class="rpv" id="rpVerb">—</div><div class="rpn" id="rpName"></div><div class="rps" id="rpState" hidden></div></div>
+        </div>
+        <p class="hint">Discord botlara Rich Presence'ın sadece şu alanlarını açar: tür, isim, <b>alt satır</b> ve yayın linki. Resim, buton ve süre sayacı botlarda çalışmaz. Alt satır bazı Discord istemcilerinde görünmeyebilir.</p>
+        <form id="actForm" class="rpform">
+          <input type="hidden" name="index" id="actIndex" value="">
+          <div class="row">
+          <select name="type" aria-label="Tür">
+            <option value="WATCHING">İzliyor</option>
+            <option value="PLAYING">Oynuyor</option>
+            <option value="STREAMING">Yayında</option>
+            <option value="LISTENING">Dinliyor</option>
+            <option value="COMPETING">Yarışıyor</option>
+          </select>
+          <input name="text" maxlength="100" placeholder="İsim (örn. {uye} üye)" required>
+          </div>
+          <div class="row"><input name="state" id="actState" maxlength="128" placeholder="Alt satır (isteğe bağlı, örn. .gg/deuslra)"></div>
+          <div class="row"><input name="url" id="actUrl" maxlength="200" type="url" placeholder="https://twitch.tv/kullanici" hidden></div>
+          <div class="row"><button class="btn" id="actSubmit">Ekle</button><button type="button" class="btn alt" id="actCancel" hidden>Vazgeç</button></div>
+        </form>
+        <form id="intForm" class="row">
+          <label>Geçiş süresi (sn)</label>
+          <input name="seconds" type="number" min="5" max="3600" id="intVal" required>
+          <button class="btn alt">Kaydet</button>
+        </form>
+      </div>
+    </section>
+
+    <section class="pane" id="pane-userrp" hidden>
+      <div class="box">
+        <h2>Rich Presence</h2>
+        <p class="hint">Rich Presence'in içeriği (satırlar, resimler, süre) sunucudaki <code>utils/richPresence.js</code> taslağından gelir. Buradan sadece <b>açıp kapatırsın</b>. Açıkken normal aktivite listesi durur, kapatınca kaldığı yerden devam eder.</p>
+        <div class="rpgrid">
+          <div>
+            <form id="urpForm" class="rpform">
+              <label class="chk"><input type="checkbox" id="urpOn" style="width:auto"> Rich Presence açık</label>
+              <div class="row"><button class="btn" id="urpSave">Kaydet</button></div>
+            </form>
+          </div>
+          <div>
+            <div class="urpc" aria-label="Taslak özeti">
+              <div class="urph" id="urpHead">—</div>
+              <div class="urpm">
+                <div class="urpt"><div class="urpd" id="urpD"></div><div class="urps" id="urpS"></div><div class="urpe" id="urpE" hidden></div></div>
+              </div>
+            </div>
+            <p class="hint" style="margin-top:10px">Bu kutu taslaktaki metinlerin özetidir (resimler Discord'da görünür). Değiştirmek için <code>utils/richPresence.js</code> dosyasını düzenleyip yeniden yayınla.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="pane" id="pane-cmdadd" hidden>
+      <div class="box">
+        <h2>Komut ekle (kod yazmadan)</h2>
+        <p class="hint" id="cmGh">…</p>
+        <form id="cmForm" class="rpform">
+          <div class="row"><input id="cmName" maxlength="32" placeholder="Komut adı (örn. kurallar)" autocomplete="off"></div>
+          <div class="row"><input id="cmDesc" maxlength="100" placeholder="Açıklama (Discord'da komutun altında görünür)"></div>
+          <div class="row"><textarea id="cmReply" rows="4" maxlength="1900" placeholder="Bot ne cevap versin? {user} {username} {server} {members} yazabilirsin"></textarea></div>
+          <label class="chk"><input type="checkbox" id="cmEmbed" style="width:auto"> Kutulu (embed) göster</label>
+          <div class="row"><input id="cmTitle" maxlength="200" placeholder="Embed başlığı (isteğe bağlı)"><input id="cmColor" maxlength="7" value="5865F2" placeholder="Renk (hex)" style="max-width:120px"></div>
+          <label class="chk"><input type="checkbox" id="cmEph" style="width:auto"> Cevabı sadece komutu yazan görsün</label>
+          <div class="row"><button class="btn" id="cmSave">Komutu ekle</button></div>
+        </form>
+      </div>
+      <div class="box">
+        <h2>Dosya yükle</h2>
+        <p class="hint">Hazır bir komut dosyan varsa (.js) yükle. Dosyada <code>module.exports = { data, execute }</code> olmalı. Komutun adı dosyanın içindeki <code>setName</code>'den alınır. Sadece kendi yazdığın / güvendiğin dosyaları yükle: dosya sunucuda çalışır.</p>
+        <div class="row"><input type="file" id="cmFile" accept=".js"><button class="btn" id="cmUp" type="button">Yükle</button></div>
+      </div>
+      <div class="box">
+        <h2>Panelden eklenenler</h2>
+        <ul class="list" id="cmList"></ul>
+      </div>
+    </section>
+
+    <section class="pane" id="pane-mention" hidden>
+      <div class="box">
+        <h2>Etiket cevapları</h2>
+        <p class="hint">Bot etiketlenip tetikleyici yazılınca bu cevabı verir (<code>/setmention</code>).</p>
+        <ul class="list" id="menList"></ul>
+        <form id="menForm" class="stack">
+          <input name="trigger" maxlength="100" placeholder="Tetikleyici (ör. naber)" required>
+          <textarea name="response" maxlength="1800" rows="3" placeholder="Cevap"></textarea>
+          <input name="mediaUrl" maxlength="500" placeholder="Medya adresi (isteğe bağlı)">
+          <div class="fld"><label>Kullanabilecek roller</label><div id="menRoles"></div><div class="d">Boş bırakırsan herkes kullanır. Rol seçersen sadece o rollerdekilere cevap verir.</div></div>
+          <button class="btn">Ekle / güncelle</button>
+        </form>
+      </div>
+    </section>
+
+    <section class="pane" id="pane-auto" hidden>
+      <div class="box">
+        <h2>Otomatik mesajlar</h2>
+        <p class="hint">Sunucuda tetikleyici yazılınca bot otomatik cevap verir (<code>/auto</code>).</p>
+        <ul class="list" id="autoList"></ul>
+        <form id="autoForm" class="stack">
+          <input name="trigger" maxlength="100" placeholder="Tetikleyici (ör. sa)" required>
+          <textarea name="response" maxlength="1800" rows="3" placeholder="Cevap"></textarea>
+          <input name="mediaUrl" maxlength="500" placeholder="Medya adresi (isteğe bağlı)">
+          <div class="row"><label>Bekleme (sn)</label><input name="cooldownSeconds" type="number" min="1" max="3600" value="3"></div>
+          <div class="fld"><label>Kullanabilecek roller</label><div id="autoRoles"></div><div class="d">Boş bırakırsan herkes kullanır. Rol seçersen sadece o rollerdekilere cevap verir.</div></div>
+          <button class="btn">Ekle / güncelle</button>
+        </form>
+      </div>
+    </section>
+
+    <section class="pane" id="pane-roles" hidden>
+      <div class="box">
+        <h2>Rol grupları</h2>
+        <p class="hint"><code>/promote</code> ve <code>/demote</code> sadece <b>üye rolleri</b> arasında basamak değiştirir (rol sırasına göre, alttan üste). <b>Yetkili rolleri</b> terfi ile asla verilmez ve yetkili olan üyelere promote/demote uygulanmaz. Bir rol tek grupta olabilir. Üye rollerini boş bırakırsan eski gibi tüm roller basamak sayılır (yetkili ve bot rolleri hariç).</p>
+        <div class="fld"><label>Üye rolleri</label><div id="grpMember"></div></div>
+        <div class="fld"><label>Yetkili rolleri</label><div id="grpStaff"></div></div>
+        <div class="fld"><label>Bot rolleri</label><div id="grpBot"></div></div>
+        <div class="row"><button class="btn" id="grpSave" type="button">Kaydet</button></div>
+      </div>
+    </section>
+
+    <section class="pane" id="pane-rankup" hidden>
+      <div class="box">
+        <h2>Auto rank up</h2>
+        <p class="hint">Üye, bir rolü aldığı andan itibaren yaptığı davetler sayılır; sıradaki rol için gereken davete ulaşınca bot rolü otomatik verir (<code>/autorankup</code>). <b>Her rank atlayışta davet sayacı 0'dan başlar.</b> İlk rol başlangıç rolüdür; diğerlerinde "bir önceki rolden sonra" kaç davet gerektiğini yaz. Sayılan davetler: sunucuda kalan, yan hesap olmayan kişiler. <b>Üye</b> ve <b>Yetkili</b> kategorileri birbirinden bağımsızdır; bir rol sadece tek kategoride olabilir. Kaydet, açık olan kategoriyi kaydeder.</p>
+        <nav class="tabs" id="rkCats" role="tablist">
+          <button type="button" data-cat="uye" class="on">Üye</button>
+          <button type="button" data-cat="yetkili">Yetkili</button>
+        </nav>
+        <label class="chk"><input type="checkbox" id="rkEnabled"> <span id="rkEnabledText">Sistem açık</span></label>
+        <div class="fld"><label>Duyuru kanalı (isteğe bağlı)</label><select id="rkChannel"></select></div>
+        <ul class="list" id="rkList"></ul>
+        <form id="rkForm" class="row">
+          <select name="role" id="rkRole" aria-label="Rol"></select>
+          <input name="invites" id="rkInv" type="number" min="1" max="1000" placeholder="Gereken davet">
+          <button class="btn">Ekle</button>
+        </form>
+        <div class="row"><button class="btn" id="rkSave" type="button">Kaydet</button></div>
+      </div>
+    </section>
+
+    <section class="pane" id="pane-members" hidden>
+      <div class="box">
+        <h2>Üye işlemleri</h2>
+        <p class="hint">Üyeyi ara, sonra sustur, susturmayı kaldır ya da at. İşlemler denetim kaydına "Panel" olarak yazılır.</p>
+        <form id="searchForm" class="row"><input id="q" minlength="2" placeholder="Üye adı (en az 2 harf)" required><button class="btn">Ara</button></form>
+        <ul class="list" id="memList"></ul>
+      </div>
+    </section>
+
+    <section class="pane" id="pane-stats" hidden>
+      <div class="box">
+        <h2>Mesaj sıralaması</h2>
+        <p class="hint">Tüm sunucu, bot açıldığından beri. Discord'da <code>/mesajtop</code> ile de görünür.</p>
+        <ol class="list rank" id="stMsg"></ol>
+      </div>
+      <div class="box">
+        <h2>Ses sıralaması</h2>
+        <p class="hint">Ses kanallarında geçirilen toplam süre (AFK kanalı sayılmaz). <code>/sestop</code></p>
+        <ol class="list rank" id="stVoice"></ol>
+        <div class="row"><button class="btn alt" id="stRefresh" type="button">Yenile</button></div>
+      </div>
+    </section>
+
+    <section class="pane" id="pane-durum" hidden>
+      <div class="box">
+        <h2>Durum yazısı rolü</h2>
+        <p class="hint">Özel durumunda ayarladığın yazıyı yazan üyeye rol verilir, kanalda etiketlenip mesaj silinir. Yazıyı kaldırınca rol geri alınır. Discord'da <code>/setdurum</code> ile aynı.</p>
+        <p class="hint" id="duWarn" hidden>⚠️ Presence intent kapalı. Render'a <code>USE_PRESENCE=true</code> ekle ve Developer Portal'da Presence Intent'i aç.</p>
+        <label class="chk"><input type="checkbox" id="duOn"> Sistem açık</label>
+        <div class="fld"><label>Durumda geçmesi gereken yazı</label><input id="duText" maxlength="100" placeholder=".gg/deuslra"></div>
+        <div class="fld"><label>Verilecek rol</label><select id="duRole"></select></div>
+        <div class="fld"><label>Etiketleme kanalı</label><select id="duChannel"></select></div>
+        <div class="row"><button class="btn" id="duSave" type="button">Kaydet</button></div>
+      </div>
+    </section>
+
+    <section class="pane" id="pane-log" hidden>
+      <div class="box">
+        <h2>Log ayarları</h2>
+        <p class="hint">Aşağıdaki olaylar seçtiğin kanala yazılır ve burada son kayıtlar olarak görünür. Siteden yaptığın her işlem de loglanır (kaynak: Web paneli).</p>
+        <div class="fld"><label>Log kanalı</label><select id="logChannel"></select></div>
+        <div class="fld"><label>Neler loglansın?</label><div class="catgrid" id="logCats"></div></div>
+        <div class="row"><button class="btn" id="logSave" type="button">Kaydet</button></div>
+      </div>
+      <div class="box">
+        <h2>Son kayıtlar</h2>
+        <div class="row"><select id="logFilter" aria-label="Kategori"></select><button class="btn alt" id="logRefresh" type="button">Yenile</button></div>
+        <ul class="list logl" id="logList"></ul>
+      </div>
+    </section>
+
+    <section class="pane" id="pane-commands" hidden>
+      <div class="box" id="cmdList">
+        <h2>Tüm komutlar</h2>
+        <p class="hint">Discord'daki komutların hepsi burada. Birini seç, formu doldur, çalıştır. Komut senin hesabınla çalışır.</p>
+        <input id="cmdSearch" placeholder="Komut ara…" autocomplete="off">
+        <div class="chips" id="cmdChips"></div>
+      </div>
+      <div class="box" id="cmdForm" hidden></div>
+      <div id="cmdResult"></div>
+    </section>
+  </main>
+  </div>
+</div>
+<div id="toast" role="status" aria-live="polite"></div>
+<script src="panel.js"></script>
+<script src="panel-cmd.js"></script>
+</body>
+</html>

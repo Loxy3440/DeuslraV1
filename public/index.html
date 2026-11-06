@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b0713">
+  <meta name="description" content="Deuslra Gardiyan Discord botu için canlı sunucu istatistikleri ve yönetim paneli.">
+  <title>Deuslra Gardiyan · Sunucu kontrol merkezi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="wrap">
+    <header class="topbar">
+      <a class="brand" href="/" aria-label="Deuslra Gardiyan ana sayfa">
+        <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2.8 20 6v5.1c0 5.1-3.4 8.2-8 10.1-4.6-1.9-8-5-8-10.1V6l8-3.2Z"/><path d="m8.7 12.1 2.2 2.2 4.6-4.8"/></svg></span>
+        <img id="guildIcon" alt="" hidden>
+        <span class="brand-copy"><strong id="guildName">Deuslra Gardiyan</strong><small>Sunucu kontrol merkezi</small></span>
+      </a>
+      <div class="top-actions">
+        <div class="live" id="live" role="status"><span class="dot"></span><span id="liveText">Bağlanıyor</span></div>
+        <a class="adm" href="panel.html"><span>Yönetim paneli</span><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11M10 5l5 5-5 5"/></svg></a>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero" aria-label="Deuslra Gardiyan canlı sunucu özeti">
+        <div class="hero-copy">
+          <div class="eyebrow"><span class="eyebrow-dot"></span> GARDİYAN · CANLI DURUM</div>
+          <h2>Topluluğun<br><span>her an kontrol altında.</span></h2>
+          <p>Sunucunun nabzını tek ekranda takip et. Üyeler, kanallar ve bot performansı anlık olarak burada.</p>
+          <div class="hero-actions">
+            <a class="hero-cta" href="panel.html">Kontrol panelini aç <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11M10 5l5 5-5 5"/></svg></a>
+            <span class="refresh-hint"><span class="refresh-mark">↻</span> 5 saniyede bir yenilenir</span>
+          </div>
+        </div>
+        <div class="hero-visual">
+          <div class="visual-top"><span><i class="signal-dot"></i> SUNUCU NABZI</span><span class="live-chip">CANLI</span></div>
+          <div class="metric-row"><strong class="count" id="members" aria-live="polite">–</strong><span>toplam<br>üye</span></div>
+          <div class="chart-shell"><svg id="spark" viewBox="0 0 300 60" preserveAspectRatio="none" aria-hidden="true"><path id="sparkLine" d=""/></svg><div class="chart-glow"></div></div>
+          <div class="note" id="sparkNote">Bu oturumdaki değişim burada çizilir.</div>
+        </div>
+      </section>
+
+      <section class="overview" id="overview" aria-labelledby="overviewTitle">
+        <div class="section-head"><div><span class="section-kicker">ANLIK İSTATİSTİKLER</span><h2 id="overviewTitle">Sunucu özeti</h2></div><span class="secure-label"><span>✦</span> Deuslra Gardiyan koruması aktif</span></div>
+        <div class="grid">
+          <article class="card" data-tone="violet"><div class="card-head"><span class="icon">▦</span><span class="card-label">Kanal</span></div><b id="channels">–</b><small>Sunucudaki toplam kanal</small></article>
+          <article class="card" data-tone="pink"><div class="card-head"><span class="icon">◈</span><span class="card-label">Rol</span></div><b id="roles">–</b><small>Tanımlı sunucu rolleri</small></article>
+          <article class="card" data-tone="amber"><div class="card-head"><span class="icon">✦</span><span class="card-label">Boost</span></div><b id="boosts">–</b><small id="tier"></small></article>
+          <article class="card" data-tone="blue"><div class="card-head"><span class="icon">⌘</span><span class="card-label">Komut</span></div><b id="commands">–</b><small>Kullanıma hazır bot komutu</small></article>
+          <article class="card" data-tone="green"><div class="card-head"><span class="icon">⌁</span><span class="card-label">Gecikme</span></div><b id="ping">–</b><small>Discord bağlantı süresi</small></article>
+          <article class="card" data-tone="lavender"><div class="card-head"><span class="icon">◷</span><span class="card-label">Çalışma süresi</span></div><b id="uptime">–</b><small>Son yeniden başlatmadan beri</small></article>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer"><span class="footer-brand"><span class="footer-mark">D</span><span id="botTag">Deuslra Gardiyan</span></span><span id="updated">Henüz güncellenmedi</span><span class="footer-note">Güvenli · Anlık · Deuslra Gardiyan</span></footer>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>
