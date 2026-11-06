@@ -37,10 +37,10 @@ const { handlePartnerInteraction } = require('../utils/partner');
 const { handleAskPermInteraction } = require('../utils/askPerm');
 const { handleRoleGroupsInteraction } = require('../utils/roleGroups');
 const { handleTriggerRolesInteraction } = require('../utils/triggerRoles');
+// Sadece web panelinde sekmesi olan ayarlar Discord'da kapalı; diğer ayar komutları (autorole, askperm,
+// setnick, setklan, setyt, settag, channelbip, vcc, setlog...) Discord'da normal çalışır.
 const WEB_ONLY_SETTINGS = new Set([
-  'askperm', 'auto', 'autorole', 'channelbip', 'eventlist', 'kategori',
-  'mention', 'setactivity', 'setdurum', 'setevent', 'setklan', 'setlog',
-  'setmention', 'setnick', 'setroles', 'settag', 'setyt', 'vcc',
+  'auto', 'mention', 'setmention', 'setactivity', 'setdurum', 'setroles',
 ]);
 
 module.exports = {

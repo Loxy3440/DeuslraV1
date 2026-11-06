@@ -27,6 +27,7 @@
       <button data-tab="auto"><i aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4" y="8" width="16" height="12" rx="3"/><path d="M12 3v5M8 13h.01M16 13h.01M9 17h6"/></svg></i>Otomatik mesaj</button>
       <button data-tab="roles"><i aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m12 3 9 5-9 5-9-5 9-5Z"/><path d="m3 12 9 5 9-5M3 16l9 5 9-5"/></svg></i>Roller</button>
       <button data-tab="rankup"><i aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m3 17 6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg></i>Auto rank up</button>
+      <button data-tab="autonick"><i aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16v4Z"/><path d="m13 7 4 4"/></svg></i>Oto Nick</button>
       <button data-tab="durum"><i aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 21s-8-4.4-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 6.6-8 11-8 11Z"/></svg></i>Durum rolü</button>
       <span class="grp">Sunucu</span>
       <button data-tab="members"><i aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8"/></svg></i>Üyeler</button>
@@ -252,6 +253,18 @@
         <p class="hint">Ses kanallarında geçirilen toplam süre (AFK kanalı sayılmaz). <code>/sestop</code></p>
         <ol class="list rank" id="stVoice"></ol>
         <div class="row"><button class="btn alt" id="stRefresh" type="button">Yenile</button></div>
+      </div>
+    </section>
+
+    <section class="pane" id="pane-autonick" hidden>
+      <div class="box">
+        <h2>Oto nick</h2>
+        <p class="hint">Sunucuya yeni katılan üyenin takma adına yazdığın yazı otomatik eklenir (ör. <code>✦</code> veya <code>Deuslra</code>). Botun rolü üyelerden yukarıda olmalı ve "Takma Adları Yönet" yetkisi olmalı.</p>
+        <label class="chk"><input type="checkbox" id="anOn"> Sistem açık</label>
+        <div class="fld"><label>Eklenecek yazı</label><input id="anText" maxlength="20" placeholder="Deuslra"></div>
+        <div class="fld"><label>Konum</label><select id="anPos"><option value="basa">İsmin başına</option><option value="sona">İsmin sonuna</option></select></div>
+        <label class="chk"><input type="checkbox" id="anBots"> Botlara da uygula</label>
+        <div class="row"><button class="btn" id="anSave" type="button">Kaydet</button></div>
       </div>
     </section>
 

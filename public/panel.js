@@ -228,6 +228,15 @@ async function loadStats() {
   draw("stMsg", d.messages); draw("stVoice", d.voice);
 }
 
+// ---- Oto nick ----
+async function loadAutoNick() {
+  const d = await api("autonick");
+  $("anOn").checked = d.enabled; $("anText").value = d.text; $("anPos").value = d.position; $("anBots").checked = d.includeBots;
+}
+function wireAutoNick() {
+  $("anSave").addEventListener("click", e => run(e.target, async () => api("autonick/save", { enabled: $("anOn").checked, text: $("anText").value, position: $("anPos").value, includeBots: $("anBots").checked })));
+}
+
 // ---- Durum yazısı rolü ----
 async function loadDurum() {
   const [d, ov] = await Promise.all([api("durum"), api("overview")]);
@@ -315,7 +324,7 @@ function wire() {
     await load();
   }, "Roller kaydedildi"));
 
-  wireRankup(); wireStatus(); wireLog(); wireDurum(); wireBotStatus(); wireUserRp(); wireCmdAdd();
+  wireRankup(); wireStatus(); wireLog(); wireDurum(); wireAutoNick(); wireBotStatus(); wireUserRp(); wireCmdAdd();
   $("tabs").addEventListener("click", e => {
     const b = e.target.closest("button[data-tab]"); if (!b) return;
     document.querySelectorAll("#tabs button").forEach(x => x.classList.toggle("on", x === b));
@@ -324,6 +333,7 @@ function wire() {
     if (b.dataset.tab === "stats") loadStats().catch(err => toast(err.message, true));
     if (b.dataset.tab === "userrp") { loadUserRp().catch(err => toast(err.message, true)); }
     if (b.dataset.tab === "cmdadd") loadCmdAdd().catch(err => toast(err.message, true));
+    if (b.dataset.tab === "autonick") loadAutoNick().catch(err => toast(err.message, true));
     if (b.dataset.tab === "durum") loadDurum().catch(err => toast(err.message, true));
     if (b.dataset.tab === "log") loadLogs().catch(err => toast(err.message, true));
   });

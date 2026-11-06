@@ -234,6 +234,26 @@ const handlers = {
     return { ok: true, message: presenceEnabled(client) ? 'Kaydedildi.' : 'Kaydedildi, ama Presence intent kapalı (USE_PRESENCE=true + Portal).' };
   },
 
+  // ---- oto nick (yeni gelen üyeye otomatik takma ad eki) ----
+  'GET autonick': async client => {
+    const guild = getGuild(client);
+    const c = await getConfig(guild.id);
+    return { enabled: !!c.autoNickEnabled, text: c.autoNickText || '', position: c.autoNickPosition || 'sona', includeBots: !!c.autoNickIncludeBots };
+  },
+  'POST autonick/save': async (client, b) => {
+    const guild = getGuild(client);
+    if (!b.enabled) {
+      await setConfig(guild.id, { autoNickEnabled: false });
+      return { ok: true, message: 'Oto nick kapatıldı.' };
+    }
+    const text = str(b.text, 20, 'Nick yazısı');
+    const position = b.position === 'basa' ? 'basa' : 'sona';
+    const me = guild.members.me;
+    if (!me.permissions.has(PermissionFlagsBits.ManageNicknames)) throw new ApiError(400, 'Botun "Takma Adları Yönet" yetkisi olmalı.');
+    await setConfig(guild.id, { autoNickEnabled: true, autoNickText: text, autoNickPosition: position, autoNickIncludeBots: !!b.includeBots });
+    return { ok: true, message: 'Oto nick kaydedildi. Yeni gelen üyelerin adına eklenecek.' };
+  },
+
   // ---- etiketlenme cevapları (/setmention) ----
   'POST mention/upsert': async (client, b) => {
     const guild = getGuild(client);
@@ -360,6 +380,7 @@ const PANEL_LABELS = {
   'roles/save': () => 'Rol grupları (üye/yetkili/bot) güncellendi',
   'rankup/save': b => `Auto rank up (${b.category}) ayarları güncellendi — ${b.enabled ? 'açık' : 'kapalı'}`,
   'log/save': () => 'Log ayarları güncellendi',
+  'autonick/save': b => (b.enabled ? `Oto nick ayarlandı: "${b.text}" (${b.position === 'basa' ? 'başa' : 'sona'})` : 'Oto nick kapatıldı'),
   'durum/save': b => (b.enabled ? `Durum rolü ayarlandı: "${b.text}"` : 'Durum rolü kapatıldı'),
 };
 function panelLog(client, route, body, actor) {
