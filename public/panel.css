@@ -403,3 +403,13 @@ body.pn #toast.err { color: #a53e46; border-color: #e8bfc0; }
 .urpe{color:#23a55a;font-size:13px;margin-top:2px}
 .urpbtns{display:grid;gap:8px;margin-top:12px}
 .urpbtns span{background:#4e5058;border-radius:6px;text-align:center;padding:8px;font-weight:500}
+
+/* Yazıyla komutlar */
+.pfc{background:var(--panel-2);border:1px solid var(--line);border-radius:12px}
+.pfc>summary{cursor:pointer;list-style:none;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 14px}
+.pfc>summary::-webkit-details-marker{display:none}
+.pfc .pfs{min-width:0;overflow-wrap:anywhere}.pfc .pfs b{font-weight:500}.pfc .pfs small{display:block;color:var(--mute);font-size:12.5px}
+.pfc .off{opacity:.55}
+.pfc .pfb{padding:0 14px 14px;display:grid;gap:4px}
+.pfc .pfacts{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}
+.fld[hidden]{display:none}

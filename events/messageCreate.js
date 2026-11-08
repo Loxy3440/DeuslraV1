@@ -1,5 +1,6 @@
 const { onMessage } = require('../utils/stats');
 const { getConfig, canUseTrigger } = require('../utils/guildConfig');
+const { handlePrefixCommand } = require('../utils/prefixCommands');
 const { getActiveEvent, isWinningMessage, claimWinner, applyPlaceholders } = require('../utils/events');
 
 // /trigger icin bellek-ici bekleme (cooldown) takibi. Bot yeniden baslatilinca sifirlanir, bu kasitli.
@@ -31,6 +32,9 @@ module.exports = {
       }
 
       const config = await getConfig(message.guild.id);
+
+      // ---------- Yazıyla (prefix) komutlar: .ban, .mute ... (panelden yönetilir) ----------
+      if (await handlePrefixCommand(message, config)) return;
 
       // ---------- /copy: bu kanaldaki yaziyi baska bir kanala kopyala ----------
       const copyEntry = config.copyChannels?.find(c => c.sourceChannelId === message.channel.id);

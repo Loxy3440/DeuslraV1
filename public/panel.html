@@ -23,6 +23,7 @@
       <button data-tab="commands"><i aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 8h.01M11 8h.01M15 8h.01M7 12h.01M11 12h.01M15 12h.01M8 16h8"/></svg></i>Tüm komutlar</button>
       <button data-tab="cmdadd"><i aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/><rect x="3" y="3" width="18" height="18" rx="3"/></svg></i>Komut ekle</button>
       <span class="grp">Otomasyon</span>
+      <button data-tab="prefix"><i aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h10M4 17h6"/><path d="m16 15 2 2 4-4"/></svg></i>Yazıyla komutlar</button>
       <button data-tab="mention"><i aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.5 8.5 0 0 1-12.8 7.3L3 20l1.3-4.4A8.5 8.5 0 1 1 21 11.5Z"/><path d="M9 11h.01M15 11h.01"/></svg></i>Etiket cevapları</button>
       <button data-tab="auto"><i aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4" y="8" width="16" height="12" rx="3"/><path d="M12 3v5M8 13h.01M16 13h.01M9 17h6"/></svg></i>Otomatik mesaj</button>
       <button data-tab="roles"><i aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m12 3 9 5-9 5-9-5 9-5Z"/><path d="m3 12 9 5 9-5M3 16l9 5 9-5"/></svg></i>Roller</button>
@@ -171,6 +172,25 @@
       </div>
     </section>
 
+    <section class="pane" id="pane-prefix" hidden>
+      <div class="box">
+        <h2>Yazıyla komutlar</h2>
+        <p class="hint">Slash komutları aynen çalışmaya devam eder. Buradan her komuta ek olarak yazıyla (örn. <code>.ban</code>) kullanım açar, adını, ek adlarını ve kimlerin kullanabileceğini ayarlarsın.</p>
+        <label class="chk"><input type="checkbox" id="pfOn"> Yazıyla komutlar açık</label>
+        <div class="fld"><label>Komut öneki</label><input id="pfPrefix" maxlength="3" autocomplete="off"><div class="d">1-3 karakter, örn. . ! ? Değişince tüm komutlar yeni önekle çalışır.</div></div>
+        <div class="fld"><label>Cevabı kaç saniye sonra silsin?</label><input id="pfDel" type="number" min="0" max="3600"><div class="d">0 = silmesin.</div></div>
+        <label class="chk"><input type="checkbox" id="pfDelMsg"> Komutu yazan kişinin mesajını sil (botta "Mesajları Yönet" izni gerekir)</label>
+      </div>
+      <div class="box">
+        <h2>Komutlar</h2>
+        <p class="hint">Aynı komutu birden çok adla ekleyebilirsin. Ad ve ek adlar benzersiz olmalı. Kullanım: <code>.ban uye @kişi [dosya] sebep</code> — seçenekler Discord'daki sırayla yazılır, son metin alanı mesajın kalanını alır.</p>
+        <div class="row"><button class="btn alt" id="pfAdd" type="button">+ Komut ekle</button><button class="btn alt" id="pfAddAll" type="button">Eksik komutları ekle</button></div>
+        <input id="pfSearch" placeholder="Komut ara…" autocomplete="off">
+        <div id="pfList" class="stack"></div>
+        <div class="row"><button class="btn" id="pfSave" type="button">Ayarları kaydet</button></div>
+      </div>
+    </section>
+
     <section class="pane" id="pane-mention" hidden>
       <div class="box">
         <h2>Etiket cevapları</h2>
@@ -312,5 +332,6 @@
 <div id="toast" role="status" aria-live="polite"></div>
 <script src="panel.js"></script>
 <script src="panel-cmd.js"></script>
+<script src="panel-prefix.js"></script>
 </body>
 </html>

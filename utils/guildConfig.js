@@ -39,6 +39,7 @@ const DEFAULT_CONFIG = {
   statusRoleId: null, // /setdurum: durum yazısını yazana verilecek rol
   statusChannelId: null, // /setdurum: rol verilince etiketlenip silinecek kanal
   statusText: null, // /setdurum: özel durumda aranan yazı
+  prefixCommands: null, // Yazıyla komutlar (panelden): { enabled, prefix, deleteReplySeconds, deleteInvokerMessage, commands: [...] }; null = varsayılan
   tagChannelId: null, // /settag: rol verilince üyenin etiketlenip mesajın silineceği kanal
 };
 

@@ -8,6 +8,7 @@ const { parseDuration } = require('./parseDuration');
 const { clearActiveTimer } = require('./activeTimers');
 const { STATS_GUILD_ID } = require('./activityRotator');
 const runner = require('./commandRunner');
+const prefixCmds = require('./prefixCommands');
 const cc = require('./customCommands');
 const { getTop, formatVoice } = require('./stats');
 const { presenceEnabled } = require('./statusRole');
@@ -331,6 +332,18 @@ const handlers = {
   'POST commands/run': async (client, b, actor) => runner.startRun(client, actor, b),
   'GET commands/job': async (_c, _b, actor, query) => runner.getJob(query.get('id'), actor.id),
 
+  // ---- yazıyla (prefix) komutlar ----
+  'GET prefix': async client => {
+    const guild = getGuild(client);
+    const cfg = prefixCmds.effective(await getConfig(guild.id), client);
+    return { config: cfg, saved: cfg.saved, available: prefixCmds.available(client), roles: runner.meta(guild).roles };
+  },
+  'POST prefix/save': async (client, b) => {
+    const guild = getGuild(client);
+    const cfg = await prefixCmds.savePrefixConfig(client, guild, b);
+    return { ok: true, config: { saved: true, ...cfg }, message: 'Yazıyla komut ayarları kaydedildi.' };
+  },
+
   // ---- moderasyon ----
   'POST mute': async (client, b, actor) => {
     const member = await getTarget(client, b.userId, actor);
@@ -379,6 +392,7 @@ const PANEL_LABELS = {
   'auto/remove': b => `Otomatik mesaj silindi: ${b.trigger}`,
   'roles/save': () => 'Rol grupları (üye/yetkili/bot) güncellendi',
   'rankup/save': b => `Auto rank up (${b.category}) ayarları güncellendi — ${b.enabled ? 'açık' : 'kapalı'}`,
+  'prefix/save': b => `Yazıyla komutlar güncellendi — ${b.enabled === false ? 'kapalı' : 'açık'}, önek: ${b.prefix}, ${(b.commands || []).length} komut`,
   'log/save': () => 'Log ayarları güncellendi',
   'autonick/save': b => (b.enabled ? `Oto nick ayarlandı: "${b.text}" (${b.position === 'basa' ? 'başa' : 'sona'})` : 'Oto nick kapatıldı'),
   'durum/save': b => (b.enabled ? `Durum rolü ayarlandı: "${b.text}"` : 'Durum rolü kapatıldı'),
@@ -404,7 +418,7 @@ async function handleAdmin(client, method, route, body, actor, query) {
     return result;
   } catch (err) {
     if (err instanceof ApiError) throw err;
-    if (err instanceof runner.PanelError || err instanceof cc.CmdError) throw new ApiError(400, err.message);
+    if (err instanceof runner.PanelError || err instanceof cc.CmdError || err instanceof prefixCmds.PrefixError) throw new ApiError(400, err.message);
     console.error('[PANEL]', route, err);
     throw new ApiError(500, 'İşlem başarısız: ' + (err.message || 'bilinmeyen hata'));
   }
